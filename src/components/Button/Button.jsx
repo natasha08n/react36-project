@@ -4,10 +4,10 @@ import styles from "./Button.module.css";
 
 class Button extends Component {
   render() {
-    const { name, type } = this.props;
+    const { name, type, onClick } = this.props;
 
     return (
-      <button type={type} className={styles.base} onClick={this.handleAdd}>
+      <button type={type} className={styles.base} onClick={onClick}>
         {name}
       </button>
     );

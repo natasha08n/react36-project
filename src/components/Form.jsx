@@ -3,24 +3,34 @@ import { Input } from "./Input";
 import { Button } from "./Button/Button";
 
 class Form extends Component {
-  state = {
-    name: "",
-    surname: "",
-    patronymic: "",
-    description: "",
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      name: "",
+      surname: "",
+      description: "",
+    };
+  }
 
   handleChange = ({ value, name }) => {
-    this.setState({ [name]: value });
+    this.setState({ [name]: value }); // this.setState(newState) - { ...prevState, ...newState }
   };
 
   handleSubmit = (e) => {
     e.preventDefault();
-    console.log("state", this.state);
+
+    this.props.onSubmit(this.state);
+    this.setState({
+      name: "",
+      surname: "",
+      description: "",
+    });
   };
 
   render() {
-    const { name, surname, patronymic, description } = this.state;
+    console.log("render");
+    const { name, surname, description } = this.state;
 
     return (
       <form onSubmit={this.handleSubmit}>
@@ -34,12 +44,6 @@ class Form extends Component {
           name="surname"
           labelName="Surname"
           value={surname}
-          onChange={this.handleChange}
-        />
-        <Input
-          name="patronymic"
-          labelName="Patronymic"
-          value={patronymic}
           onChange={this.handleChange}
         />
         <Input
