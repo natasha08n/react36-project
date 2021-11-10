@@ -1,5 +1,7 @@
 import { Component } from "react";
 
+import "./styles.css";
+
 class Input extends Component {
   static defaultProps = {
     type: "input",
@@ -24,6 +26,7 @@ class Input extends Component {
               type="text"
               value={value}
               onChange={this.handleChange}
+              className="input"
             />
           ) : (
             <textarea name={name} value={value} onChange={this.handleChange} />

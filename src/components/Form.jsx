@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { Input } from "./Input";
+import { Input } from "./Input/Input";
 import { Button } from "./Button/Button";
 
 class Form extends Component {
@@ -11,6 +11,19 @@ class Form extends Component {
       surname: "",
       description: "",
     };
+  }
+
+  componentDidMount() {
+    window.addEventListener('scroll', this.onScroll, false);
+  }
+  
+  componentWillUnmount() {
+    console.log('FORM componentWillUnmount')
+    window.removeEventListener('scroll', this.onScroll, false);
+  }
+
+  onScroll = () => {
+    console.log('scroll happened')
   }
 
   handleChange = ({ value, name }) => {
@@ -29,7 +42,6 @@ class Form extends Component {
   };
 
   render() {
-    console.log("render");
     const { name, surname, description } = this.state;
 
     return (
