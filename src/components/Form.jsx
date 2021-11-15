@@ -1,74 +1,59 @@
-import { Component } from "react";
+import { useState, useEffect } from "react";
+
 import { Input } from "./Input/Input";
 import { Button } from "./Button/Button";
 
-class Form extends Component {
-  constructor(props) {
-    super(props);
+function Form({ onSubmit }) {
+  const [name, setName] = useState("");
+  const [surname, setSurname] = useState("");
+  const [description, setDescription] = useState("");
 
-    this.state = {
-      name: "",
-      surname: "",
-      description: "",
+  useEffect(() => {
+    console.log("useEffect as componentDidMount");
+    window.addEventListener("scroll", onScroll, false);
+
+    return () => {
+      console.log("useEffect as componentWillUnmount");
+      window.removeEventListener("scroll", onScroll, false);
     };
-  }
+  }, []);
 
-  componentDidMount() {
-    window.addEventListener('scroll', this.onScroll, false);
-  }
-  
-  componentWillUnmount() {
-    console.log('FORM componentWillUnmount')
-    window.removeEventListener('scroll', this.onScroll, false);
-  }
-
-  onScroll = () => {
-    console.log('scroll happened')
-  }
-
-  handleChange = ({ value, name }) => {
-    this.setState({ [name]: value }); // this.setState(newState) - { ...prevState, ...newState }
+  const onScroll = () => {
+    console.log("scroll happened");
   };
 
-  handleSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
-    this.props.onSubmit(this.state);
-    this.setState({
-      name: "",
-      surname: "",
-      description: "",
-    });
+    onSubmit({ name, surname, description });
+    clearForm();
   };
 
-  render() {
-    const { name, surname, description } = this.state;
+  const clearForm = () => {
+    setName("");
+    setSurname("");
+    setDescription("");
+  };
 
-    return (
-      <form onSubmit={this.handleSubmit}>
-        <Input
-          name="name"
-          labelName="Name"
-          value={name}
-          onChange={this.handleChange}
-        />
-        <Input
-          name="surname"
-          labelName="Surname"
-          value={surname}
-          onChange={this.handleChange}
-        />
-        <Input
-          type="textarea"
-          name="description"
-          labelName="Description"
-          value={description}
-          onChange={this.handleChange}
-        />
-        <Button type="submit" name="Добавить преподавателя" />
-      </form>
-    );
-  }
+  return (
+    <form onSubmit={handleSubmit}>
+      <Input name="name" labelName="Name" value={name} onChange={setName} />
+      <Input
+        name="surname"
+        labelName="Surname"
+        value={surname}
+        onChange={setSurname}
+      />
+      <Input
+        type="textarea"
+        name="description"
+        labelName="Description"
+        value={description}
+        onChange={setDescription}
+      />
+      <Button type="submit" name="Добавить преподавателя" />
+    </form>
+  );
 }
 
 export { Form };

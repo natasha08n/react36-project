@@ -1,17 +1,11 @@
-import { Component } from "react";
-
 import styles from "./Button.module.css";
 
-class Button extends Component {
-  render() {
-    const { name, type, onClick } = this.props;
-
-    return (
-      <button type={type} className={styles.base} onClick={onClick}>
-        {name}
-      </button>
-    );
-  }
+function Button({ name, type, onClick }) {
+  return (
+    <button type={type} className={styles.base} onClick={onClick}>
+      {name}
+    </button>
+  );
 }
 
 Button.defaultProps = {

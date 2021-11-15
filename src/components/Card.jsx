@@ -1,51 +1,30 @@
 import React from "react";
+import PropTypes from "prop-types";
 
-class Card extends React.Component {
-  handleDelete = () => {
-    this.props.handleDelete(this.props.id);
+function Card({ id, name, surname, description, handleDelete }) {
+  const onDelete = () => {
+    handleDelete(id);
   };
 
-  render() {
-    const { name = "No name", surname, description } = this.props;
+  return (
+    <div>
+      <p>
+        {name} {surname}
+      </p>
+      {description && <p>О преподавателе: {description}</p>}
+      {!description && <p>Нет информации</p>}
 
-    return (
-      <div>
-        <p>
-          {name} {surname}
-        </p>
-        {description && <p>О преподавателе: {description}</p>}
-        {!description && <p>Нет информации</p>}
-
-        <button onClick={this.handleDelete}>Удалить</button>
-      </div>
-    );
-  }
+      <button onClick={onDelete}>Удалить</button>
+    </div>
+  );
 }
 
+Card.propTypes = {
+  id: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
+  surname: PropTypes.string.isRequired,
+  description: PropTypes.string,
+  handleDelete: PropTypes.func,
+};
+
 export { Card };
-
-/**
- *
- * return articles.length > 0 ? <ArticleList articles={articles} /> : null;
- * return isLoading ? <p>Loading...</p> : <ArticleList articles={articles} />;
- * 
- return isLoading ? <p>Loading...</p> : articles.length > 0 ? <ArticleList articles={articles} /> : null
-
- return (
-   <>
-   {isLoading && <p>Loading...</p>}
-   {articles.length > 0 ? <ArticleList articles={articles} /> : null}
-   </>
- )
- */
-
-/**
- * componentDidUpdate(prevProps) {
- *   if (this.props.field !== prevProps.field) {
- *     fetch(.....)
- *       .then((data) => {
- *         this.setState(prevState => ({ items: [...prevState.items, ...data.newItems] }))
- *       })
- *   }
- * }
- */

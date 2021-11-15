@@ -1,4 +1,4 @@
-import React from "react";
+import { useState, useEffect } from "react";
 
 import { Button } from "./Button/Button";
 import { Header } from "./Header/Header";
@@ -7,83 +7,81 @@ import { List } from "./List";
 import { getTeachers, addTeacher, deleteTeacher } from "../api/teachers";
 
 /**
- * Section { items }
- *  Form
- *    Input (3)
- *    Button
- *  List
- *    ListItem
+ * useEffect(() => {}, []) = componentDidMount
+ * useEffect(() => {}, [valueToUpdate1, valueToUpdate2, ....]) = componentDidUpdate
+ * useEffect(() => { return () => {}}, []) = componentWillUnmount
+ * useState = setState
+ * useMemo
+ * useCallback
+ * useRef = createRef
+ * useContext = createContext
+ * useReducer
+ * ----------------------------------------------------------------
+ * useFetch
+ * useLocalStorage
  */
 
-class Section extends React.Component {
-  state = {
-    showed: true,
-    items: [],
-    loading: false,
-  };
+function Section(props) {
+  const [showed, setShowed] = useState(true);
+  const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-  async componentDidMount() {
-    this.setState({ loading: true });
+  useEffect(() => {
+    async function fetchItems() {
+      setLoading(true);
 
-    try {
-      const items = await getTeachers();
-      this.setState({ items });
-    } finally {
-      this.setState({ loading: false });
+      try {
+        const itemsDB = await getTeachers();
+        setItems(itemsDB);
+      } finally {
+        setLoading(false);
+      }
     }
-  }
 
-  handleToggle = () => {
-    this.setState((prevState) => ({ showed: !prevState.showed }));
+    fetchItems();
+  }, []);
+
+  const handleToggle = () => {
+    setShowed((prevShowed) => !prevShowed);
   };
 
-  handleAddItem = async (item) => {
+  const handleAddItem = async (item) => {
     try {
       const res = await addTeacher(item);
 
-      this.setState((prevState) => ({
-        items: [...prevState.items, res],
-      }));
+      setItems((prevItems) => [...prevItems, res]);
     } catch (error) {
       alert(error.toString());
     }
   };
 
-  handleDeleteItem = (id) => {
+  const handleDeleteItem = (id) => {
     deleteTeacher(id)
       .then(() => {
-        this.setState((prevState) => ({
-          items: prevState.items.filter((i) => i.id !== id),
-        }));
+        setItems((prevItems) => prevItems.filter((i) => i.id !== id));
       })
       .catch((error) => {
         alert(error.toString());
       });
   };
 
-  render() {
-    const { items, loading } = this.state;
+  return (
+    <>
+      <Header size="h2" title="Список преподавателей" />
+      {loading && <p>Loading...</p>}
+      {items.length > 0 && <List items={items} deleteItem={handleDeleteItem} />}
+      <br />
+      <Button
+        name={showed ? "Скрыть форму" : "Показать форму"}
+        onClick={handleToggle}
+      />
+      <hr />
 
-    return (
-      <>
-        <Header size="h2" title="Список преподавателей" />
-        {loading && <p>Loading...</p>}
-        {items.length > 0 && (
-          <List items={this.state.items} deleteItem={this.handleDeleteItem} />
-        )}
-        <br />
-        <Button
-          name={this.state.showed ? "Скрыть форму" : "Показать форму"}
-          onClick={this.handleToggle}
-        />
-        <hr />
+      <br />
 
-        <br />
-
-        {this.state.showed ? <Form onSubmit={this.handleAddItem} /> : null}
-      </>
-    );
-  }
+      {showed ? <Form onSubmit={handleAddItem} /> : null}
+    </>
+  );
 }
 
 export { Section };
