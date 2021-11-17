@@ -1,11 +1,16 @@
+import { useCallback, memo } from "react";
+
 import "./styles.css";
 
 function Input({ type = "input", labelName, name, value, onChange }) {
-  const handleChange = (e) => {
-    const { value } = e.target;
+  const handleChange = useCallback(
+    (e) => {
+      const { value } = e.target;
 
-    onChange(value);
-  };
+      onChange(value);
+    },
+    [onChange]
+  );
 
   return (
     <div>
@@ -27,4 +32,6 @@ function Input({ type = "input", labelName, name, value, onChange }) {
   );
 }
 
-export { Input };
+const InputMemo = memo(Input);
+
+export { InputMemo as Input };

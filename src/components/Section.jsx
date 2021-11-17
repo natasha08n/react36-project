@@ -1,19 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 import { Button } from "./Button/Button";
 import { Header } from "./Header/Header";
 import { Form } from "./Form";
 import { List } from "./List";
+import { Example } from "./Example";
 import { getTeachers, addTeacher, deleteTeacher } from "../api/teachers";
 
 /**
- * useEffect(() => {}, []) = componentDidMount
- * useEffect(() => {}, [valueToUpdate1, valueToUpdate2, ....]) = componentDidUpdate
- * useEffect(() => { return () => {}}, []) = componentWillUnmount
- * useState = setState
  * useMemo
- * useCallback
- * useRef = createRef
  * useContext = createContext
  * useReducer
  * ----------------------------------------------------------------
@@ -26,24 +21,28 @@ function Section(props) {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  // 1 - initial render
+
   useEffect(() => {
     async function fetchItems() {
-      setLoading(true);
-
+      setLoading(true); // 2
       try {
         const itemsDB = await getTeachers();
-        setItems(itemsDB);
+        setItems(itemsDB); // 3
       } finally {
-        setLoading(false);
+        setLoading(false); // 4
       }
     }
-
     fetchItems();
   }, []);
 
   const handleToggle = () => {
     setShowed((prevShowed) => !prevShowed);
   };
+
+  const handleClick = useCallback(() => {
+    console.log("Clicked!");
+  }, []);
 
   const handleAddItem = async (item) => {
     try {
@@ -68,6 +67,7 @@ function Section(props) {
   return (
     <>
       <Header size="h2" title="Список преподавателей" />
+      <Example />
       {loading && <p>Loading...</p>}
       {items.length > 0 && <List items={items} deleteItem={handleDeleteItem} />}
       <br />

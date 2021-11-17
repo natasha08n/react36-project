@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 import { Input } from "./Input/Input";
 import { Button } from "./Button/Button";
@@ -7,20 +7,6 @@ function Form({ onSubmit }) {
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [description, setDescription] = useState("");
-
-  useEffect(() => {
-    console.log("useEffect as componentDidMount");
-    window.addEventListener("scroll", onScroll, false);
-
-    return () => {
-      console.log("useEffect as componentWillUnmount");
-      window.removeEventListener("scroll", onScroll, false);
-    };
-  }, []);
-
-  const onScroll = () => {
-    console.log("scroll happened");
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
