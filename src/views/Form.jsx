@@ -1,12 +1,15 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-import { Input } from "./Input/Input";
-import { Button } from "./Button/Button";
+import { Input } from "../components/Input/Input";
+import { Button } from "../components/Button/Button";
+import { addTeacher } from "../api/teachers";
 
-function Form({ onSubmit }) {
+function Form() {
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [description, setDescription] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -19,6 +22,15 @@ function Form({ onSubmit }) {
     setName("");
     setSurname("");
     setDescription("");
+  };
+
+  const onSubmit = async (item) => {
+    try {
+      await addTeacher(item);
+      navigate("/teachers");
+    } catch (error) {
+      alert(error.toString());
+    }
   };
 
   return (

@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 function Card({ id, name, surname, description, handleDelete }) {
   const onDelete = () => {
@@ -8,9 +9,9 @@ function Card({ id, name, surname, description, handleDelete }) {
 
   return (
     <div>
-      <p>
+      <Link to={`/teachers/${id}`}>
         {name} {surname}
-      </p>
+      </Link>
       {description && <p>О преподавателе: {description}</p>}
       {!description && <p>Нет информации</p>}
 

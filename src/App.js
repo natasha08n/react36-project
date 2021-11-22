@@ -1,16 +1,20 @@
 import React from "react";
+import { Route, Routes } from "react-router-dom";
 
-import { Section } from "./components/Section";
-import { Header } from "./components/Header/Header";
-import "./App.css";
+import { Home } from "./views/Home";
+import { Form } from "./views/Form";
+import { Teachers } from "./views/Teachers";
+import { Teacher } from "./views/Teacher";
 
 class App extends React.Component {
   render() {
     return (
-      <div className="App">
-        <Header size="h1" title="Учим React" />
-        <Section />
-      </div>
+      <Routes>
+        <Route path="" element={<Home />} />
+        <Route path="/form" element={<Form />} />
+        <Route path="/teachers" element={<Teachers />} />
+        <Route path="/teachers/:id" element={<Teacher />} />
+      </Routes>
     );
   }
 }

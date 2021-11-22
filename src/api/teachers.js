@@ -8,6 +8,13 @@ export const getTeachers = async () => {
   return data;
 };
 
+export const getTeacher = async (id) => {
+  const { data } = await axios.get(`${BASE_URL}/teachers/${id}`);
+
+  return data;
+};
+
+
 export const addTeacher = async (t) => {
   const { data } = await axios.post(`${BASE_URL}/teachers`, t);
 
