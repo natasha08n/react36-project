@@ -1,20 +1,30 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
+import { createContext } from "react";
 
 import { Home } from "./views/Home";
-import { Form } from "./views/Form";
-import { Teachers } from "./views/Teachers";
-import { Teacher } from "./views/Teacher";
+import { Loading } from "./components/Loading";
+import { theme } from "./theme/colors";
+
+const AsyncTeacher = lazy(() => import("./views/Teacher"));
+const AsyncTeachers = lazy(() => import("./views/Teachers"));
+const AsyncForm = lazy(() => import("./views/Form"));
+
+export const ThemeContext = createContext(theme.dark);
 
 class App extends React.Component {
   render() {
     return (
-      <Routes>
-        <Route path="" element={<Home />} />
-        <Route path="/form" element={<Form />} />
-        <Route path="/teachers" element={<Teachers />} />
-        <Route path="/teachers/:id" element={<Teacher />} />
-      </Routes>
+      <ThemeContext.Provider value={theme.light}>
+        <Suspense fallback={<Loading />}>
+          <Routes>
+            <Route path="" element={<Home />} />
+            <Route path="/form" element={<AsyncForm />} />
+            <Route path="/teachers" element={<AsyncTeachers />} />
+            <Route path="/teachers/:id" element={<AsyncTeacher />} />
+          </Routes>
+        </Suspense>
+      </ThemeContext.Provider>
     );
   }
 }

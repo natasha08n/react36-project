@@ -23,29 +23,3 @@ class Card extends React.Component {
 }
 
 export { Card };
-
-/**
- *
- * return articles.length > 0 ? <ArticleList articles={articles} /> : null;
- * return isLoading ? <p>Loading...</p> : <ArticleList articles={articles} />;
- * 
- return isLoading ? <p>Loading...</p> : articles.length > 0 ? <ArticleList articles={articles} /> : null
-
- return (
-   <>
-   {isLoading && <p>Loading...</p>}
-   {articles.length > 0 ? <ArticleList articles={articles} /> : null}
-   </>
- )
- */
-
-/**
- * componentDidUpdate(prevProps) {
- *   if (this.props.field !== prevProps.field) {
- *     fetch(.....)
- *       .then((data) => {
- *         this.setState(prevState => ({ items: [...prevState.items, ...data.newItems] }))
- *       })
- *   }
- * }
- */

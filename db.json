@@ -29,6 +29,18 @@
       "surname": "Воробей",
       "description": "Новичок",
       "id": 5
+    },
+    {
+      "name": "Константин",
+      "surname": "Валерьянов",
+      "description": "Новичок",
+      "id": 6
+    },
+    {
+      "name": "Наташа 2",
+      "surname": "Чобот 2",
+      "description": "",
+      "id": 7
     }
   ]
 }

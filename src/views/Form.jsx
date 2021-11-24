@@ -1,15 +1,17 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { Input } from "../components/Input/Input";
 import { Button } from "../components/Button/Button";
 import { addTeacher } from "../api/teachers";
+import { ThemeContext } from "../App";
 
 function Form() {
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [description, setDescription] = useState("");
   const navigate = useNavigate();
+  const theme = useContext(ThemeContext);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -34,7 +36,7 @@ function Form() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} style={{ backgroundColor: theme.background }}>
       <Input name="name" labelName="Name" value={name} onChange={setName} />
       <Input
         name="surname"
@@ -54,4 +56,4 @@ function Form() {
   );
 }
 
-export { Form };
+export default Form;

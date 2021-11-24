@@ -4,6 +4,7 @@ import { Button } from "./Button/Button";
 import { Header } from "./Header/Header";
 import { Form } from "./Form";
 import { List } from "./List";
+import { Loading } from "./Loading";
 import { getTeachers, addTeacher, deleteTeacher } from "../api/teachers";
 
 /**
@@ -78,7 +79,7 @@ class Section extends React.Component {
     return (
       <>
         <Header size="h2" title="Список преподавателей" />
-        {loading && <p>Loading...</p>}
+        {loading && <Loading />}
         {items.length > 0 && (
           <List items={this.state.items} deleteItem={this.handleDeleteItem} />
         )}

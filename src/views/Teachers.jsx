@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 import { Header } from "../components/Header";
 import { List } from "../components/List";
+import { Loading } from "../components/Loading";
 import { getTeachers, deleteTeacher } from "../api/teachers";
 
 /**
@@ -48,7 +49,7 @@ function Teachers() {
   return (
     <>
       <Header size="h2" title="Список преподавателей" />
-      {loading && <p>Loading...</p>}
+      {loading && <Loading />}
       {items.length > 0 && <List items={items} deleteItem={handleDeleteItem} />}
       <button onClick={filterItems}>Показать тех, у кого есть описание</button>
       {filteredItems.length > 0 && <List items={filteredItems} />}
@@ -61,4 +62,4 @@ function Teachers() {
   );
 }
 
-export { Teachers };
+export default Teachers;
