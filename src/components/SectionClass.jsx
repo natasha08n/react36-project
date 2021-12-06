@@ -7,26 +7,6 @@ import { List } from "./List";
 import { Loading } from "./Loading";
 import { getTeachers, addTeacher, deleteTeacher } from "../api/teachers";
 
-/**
- * Section { items }
- *  Form
- *    Input (3)
- *    Button
- *  List
- *    ListItem
- */
-
-/**
- * useEffect(() => {}, []) = componentDidMount, componentDidUpdate, componentWillUnmount
- * useState = setState
- * useRef = createRef
- * useContext = createContext
- * useReducer
- * ----------------------------------------------------------------
- * useFetch
- * useLocalStorage
- */
-
 class Section extends React.Component {
   state = {
     showed: true,

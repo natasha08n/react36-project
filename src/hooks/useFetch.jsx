@@ -15,7 +15,7 @@ function useFetch(id) {
       .finally(() => {
         setLoading(false);
       });
-  }, [id]);
+  }, [id]); 
 
   return { item, loading };
 }

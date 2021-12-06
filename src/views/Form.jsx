@@ -1,10 +1,26 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
 
 import { Input } from "../components/Input/Input";
 import { Button } from "../components/Button/Button";
 import { addTeacher } from "../api/teachers";
 import { ThemeContext } from "../App";
+
+const StyledButton = styled(Button)`
+  background-color: ${({ background }) => {
+    console.log("background", background);
+    return background;
+  }};
+  margin-top: ${({ marginTop }) => {
+    console.log("marginTop", marginTop);
+    return marginTop;
+  }};
+`;
+
+const P = styled.p`
+  color: #cc00dd;
+`
 
 function Form() {
   const [name, setName] = useState("");
@@ -12,6 +28,18 @@ function Form() {
   const [description, setDescription] = useState("");
   const navigate = useNavigate();
   const theme = useContext(ThemeContext);
+  const rendered = useRef(false);
+
+  useEffect(() => {
+    if (rendered.current) {
+      // if true
+      console.log("1");
+    } else {
+      // if false
+      console.log("2");
+      rendered.current = true;
+    }
+  }, [name, surname, description]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -51,7 +79,13 @@ function Form() {
         value={description}
         onChange={setDescription}
       />
-      <Button type="submit" name="Добавить преподавателя" />
+      <P>Hi everyone</P>
+      <StyledButton
+        type="submit"
+        name="Добавить преподавателя 1"
+        background="#cc00cc"
+        marginTop="20px"
+      />
     </form>
   );
 }

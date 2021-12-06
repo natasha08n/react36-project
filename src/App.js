@@ -4,6 +4,7 @@ import { createContext } from "react";
 
 import { Home } from "./views/Home";
 import { Loading } from "./components/Loading";
+import { Menu } from "./components/Menu";
 import { theme } from "./theme/colors";
 
 const AsyncTeacher = lazy(() => import("./views/Teacher"));
@@ -18,7 +19,8 @@ class App extends React.Component {
       <ThemeContext.Provider value={theme.light}>
         <Suspense fallback={<Loading />}>
           <Routes>
-            <Route path="" element={<Home />} />
+            <Route path="/" element={<Menu />} />
+            <Route index element={<Home />} />
             <Route path="/form" element={<AsyncForm />} />
             <Route path="/teachers" element={<AsyncTeachers />} />
             <Route path="/teachers/:id" element={<AsyncTeacher />} />
