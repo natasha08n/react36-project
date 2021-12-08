@@ -3,44 +3,14 @@
     {
       "name": "Наташа",
       "surname": "Чобот",
-      "description": "Преподаватель",
-      "id": 1
-    },
-    {
-      "name": "Эдуард",
-      "surname": "Коновка",
-      "description": "Ученик",
-      "id": 2
+      "description": "",
+      "id": 14
     },
     {
       "name": "Саша",
       "surname": "Репета",
       "description": "",
-      "id": 3
-    },
-    {
-      "name": "Валентина",
-      "surname": "Веселая",
-      "description": "",
-      "id": 4
-    },
-    {
-      "name": "Саша",
-      "surname": "Воробей",
-      "description": "Новичок",
-      "id": 5
-    },
-    {
-      "name": "Константин",
-      "surname": "Валерьянов",
-      "description": "Новичок",
-      "id": 6
-    },
-    {
-      "name": "Наташа 2",
-      "surname": "Чобот 2",
-      "description": "",
-      "id": 7
+      "id": 16
     }
   ]
 }

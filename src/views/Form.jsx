@@ -1,11 +1,13 @@
 import { useState, useContext, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { useDispatch } from "react-redux";
 
 import { Input } from "../components/Input/Input";
 import { Button } from "../components/Button/Button";
 import { addTeacher } from "../api/teachers";
 import { ThemeContext } from "../App";
+import { addTeacher as addTeacherAction } from "../store/actions/teachers";
 
 const StyledButton = styled(Button)`
   background-color: ${({ background }) => {
@@ -20,7 +22,7 @@ const StyledButton = styled(Button)`
 
 const P = styled.p`
   color: #cc00dd;
-`
+`;
 
 function Form() {
   const [name, setName] = useState("");
@@ -29,6 +31,7 @@ function Form() {
   const navigate = useNavigate();
   const theme = useContext(ThemeContext);
   const rendered = useRef(false);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (rendered.current) {
@@ -56,7 +59,8 @@ function Form() {
 
   const onSubmit = async (item) => {
     try {
-      await addTeacher(item);
+      const teacher = await addTeacher(item);
+      dispatch(addTeacherAction(teacher));
       navigate("/teachers");
     } catch (error) {
       alert(error.toString());

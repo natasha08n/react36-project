@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useSearchParams } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 
 import { Header } from "../components/Header";
 import { List } from "../components/List";
@@ -7,6 +8,10 @@ import { Input } from "../components/Input/Input";
 import { Button } from "../components/Button/Button";
 import { Loading } from "../components/Loading";
 import { getTeachers, deleteTeacher } from "../api/teachers";
+import {
+  setTeachers,
+  deleteTeacher as deleteTeacherAction,
+} from "../store/actions/teachers";
 
 /**
  * useMemo
@@ -16,8 +21,9 @@ import { getTeachers, deleteTeacher } from "../api/teachers";
  */
 
 function Teachers() {
-  const [items, setItems] = useState([]);
-  const [filteredItems, setFilteredItems] = useState(items);
+  const items = useSelector((state) => state.teachers);
+  const dispatch = useDispatch();
+  // const [filteredItems, setFilteredItems] = useState(items);
   const [loading, setLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   let [searchParams, setSearchParams] = useSearchParams();
@@ -27,34 +33,34 @@ function Teachers() {
       setLoading(true);
       try {
         const itemsDB = await getTeachers();
-        setItems(itemsDB);
+        dispatch(setTeachers(itemsDB));
       } finally {
         setLoading(false);
       }
     }
     fetchItems();
-  }, []);
+  }, [dispatch]);
 
   const handleSearch = () => {
     // The serialize function here would be responsible for
     // creating an object of { key: value } pairs from the
     // fields in the form that make up the query.
-    setSearchParams({ search: searchQuery, name: 'name' });
+    setSearchParams({ search: searchQuery, name: "name" });
   };
 
   const handleDeleteItem = (id) => {
     deleteTeacher(id)
       .then(() => {
-        setItems((prevItems) => prevItems.filter((i) => i.id !== id));
+        dispatch(deleteTeacherAction(id));
       })
       .catch((error) => {
         alert(error.toString());
       });
   };
 
-  const filterItems = () => {
-    setFilteredItems(items.filter((item) => item.description));
-  };
+  // const filterItems = () => {
+  //   setFilteredItems(items.filter((item) => item.description));
+  // };
 
   return (
     <>
@@ -68,8 +74,8 @@ function Teachers() {
       />
       <Button onClick={handleSearch} name="Run Search" />
       {items.length > 0 && <List items={items} deleteItem={handleDeleteItem} />}
-      <button onClick={filterItems}>Показать тех, у кого есть описание</button>
-      {filteredItems.length > 0 && <List items={filteredItems} />}
+      {/* <button onClick={filterItems}>Показать тех, у кого есть описание</button>
+      {filteredItems.length > 0 && <List items={filteredItems} />} */}
       <hr />
 
       <br />
