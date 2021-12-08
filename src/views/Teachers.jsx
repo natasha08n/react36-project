@@ -33,6 +33,7 @@ function Teachers() {
       setLoading(true);
       try {
         const itemsDB = await getTeachers();
+        console.log('itemsDB', itemsDB)
         dispatch(setTeachers(itemsDB));
       } finally {
         setLoading(false);

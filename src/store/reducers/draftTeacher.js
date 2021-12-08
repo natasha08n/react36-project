@@ -1,15 +1,20 @@
-const DEFAULT_STATE = {};
+import { createReducer } from "@reduxjs/toolkit";
 
-export const draftTeacherReducer = (state = DEFAULT_STATE, action) => {
-  switch (action.type) {
-    case "ADD_DRAFT_TEACHER":
-      return {
-        ...state,
-        ...action.payload.teacher,
-      };
-    case "DELETE_DRAFT_TEACHER":
-      return DEFAULT_STATE;
-    default:
-      return state;
-  }
+import {
+  updateDraftTeacher,
+  deleteDraftTeacher,
+} from "../actions/draftTeacher";
+
+const DEFAULT_STATE = {
+  name: "",
+  surname: "",
+  description: "",
 };
+
+export const draftTeacherReducer = createReducer(DEFAULT_STATE, {
+  [updateDraftTeacher]: (state, action) => {
+    console.log(action.payload);
+    return { ...state, ...action.payload };
+  },
+  [deleteDraftTeacher]: DEFAULT_STATE,
+});

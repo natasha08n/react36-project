@@ -1,16 +1,16 @@
 {
   "teachers": [
     {
-      "name": "Наташа",
-      "surname": "Чобот",
-      "description": "",
-      "id": 14
-    },
-    {
       "name": "Саша",
       "surname": "Репета",
       "description": "",
       "id": 16
+    },
+    {
+      "name": "Джек",
+      "surname": "Воробей",
+      "description": "",
+      "id": 17
     }
   ]
 }

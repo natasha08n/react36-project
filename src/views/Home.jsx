@@ -7,12 +7,16 @@ import { ThemeContext } from "../App";
 function Home() {
   const theme = useContext(ThemeContext);
 
+  console.log('process.env', process.env)
+
   return (
     <div style={{ backgroundColor: theme.background }}>
       <Header
         size="h3"
         title="Приложение для создания каталога преподавателей"
       />
+      <small>You are running this application in <b>{process.env.REACT_APP_DEFAULT_VAR}</b> mode.</small>
+      <br />
       <Link to="/teachers">Список преподавателей</Link>
       <br />
       <Link to="/form">Форма добавления нового преподавателя</Link>

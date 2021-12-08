@@ -1,13 +1,17 @@
-import { useState, useContext, useEffect, useRef } from "react";
+import { useContext, useEffect, useRef } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
 
 import { Input } from "../components/Input/Input";
 import { Button } from "../components/Button/Button";
 import { addTeacher } from "../api/teachers";
 import { ThemeContext } from "../App";
 import { addTeacher as addTeacherAction } from "../store/actions/teachers";
+import {
+  updateDraftTeacher,
+  deleteDraftTeacher,
+} from "../store/actions/draftTeacher";
 
 const StyledButton = styled(Button)`
   background-color: ${({ background }) => {
@@ -25,9 +29,9 @@ const P = styled.p`
 `;
 
 function Form() {
-  const [name, setName] = useState("");
-  const [surname, setSurname] = useState("");
-  const [description, setDescription] = useState("");
+  const { name, surname, description } = useSelector(
+    (state) => state.draftTeacher
+  );
   const navigate = useNavigate();
   const theme = useContext(ThemeContext);
   const rendered = useRef(false);
@@ -52,9 +56,7 @@ function Form() {
   };
 
   const clearForm = () => {
-    setName("");
-    setSurname("");
-    setDescription("");
+    dispatch(deleteDraftTeacher());
   };
 
   const onSubmit = async (item) => {
@@ -67,21 +69,33 @@ function Form() {
     }
   };
 
+  const handleNameUpdate = (name) => {
+    dispatch(updateDraftTeacher({ name }))
+  }
+
+  const handleSurnameUpdate = (surname) => {
+    dispatch(updateDraftTeacher({ surname }))
+  }
+
+  const handleDescriptionUpdate = (description) => {
+    dispatch(updateDraftTeacher({ description }))
+  }
+
   return (
     <form onSubmit={handleSubmit} style={{ backgroundColor: theme.background }}>
-      <Input name="name" labelName="Name" value={name} onChange={setName} />
+      <Input name="name" labelName="Name" value={name} onChange={handleNameUpdate} />
       <Input
         name="surname"
         labelName="Surname"
         value={surname}
-        onChange={setSurname}
+        onChange={handleSurnameUpdate}
       />
       <Input
         type="textarea"
         name="description"
         labelName="Description"
         value={description}
-        onChange={setDescription}
+        onChange={handleDescriptionUpdate}
       />
       <P>Hi everyone</P>
       <StyledButton

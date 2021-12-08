@@ -1,16 +1,18 @@
+import { createReducer } from "@reduxjs/toolkit";
+
+import {
+  addTeacher,
+  deleteTeacher,
+  setTeachers,
+  removeTeachers,
+} from "../actions/teachers";
+
 const DEFAULT_STATE = [];
 
-export const teachersReducer = (state = DEFAULT_STATE, action) => {
-  switch (action.type) {
-    case "ADD_TEACHER":
-      return [...state, action.payload.teacher];
-    case "DELETE_TEACHER":
-      return state.filter((i) => i.id !== action.payload.id);
-    case "SET_TEACHERS":
-      return [...state, ...action.payload.teachers];
-    case "REMOVE_TEACHERS":
-        return DEFAULT_STATE;
-    default:
-      return state;
-  }
-};
+export const teachersReducer = createReducer(DEFAULT_STATE, {
+  [addTeacher.type]: (state, action) => [...state, action.payload.teacher],
+  [deleteTeacher.type]: (state, action) =>
+    state.filter((i) => i.id !== action.payload.id),
+  [setTeachers.type]: (state, action) => [...state, ...action.payload.teachers],
+  [removeTeachers.type]: () => DEFAULT_STATE,
+});

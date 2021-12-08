@@ -1,26 +1,18 @@
-export function addTeacher(teacher) {
-  return {
-    type: "ADD_TEACHER",
-    payload: {
-      teacher,
-    },
-  };
-}
+import { createAction } from "@reduxjs/toolkit";
 
-export function deleteTeacher(id) {
-  return {
-    type: "DELETE_TEACHER",
-    payload: {
-      id,
-    },
-  };
-}
-
-export function setTeachers(teachers) {
-  return {
-    type: "SET_TEACHERS",
-    payload: {
-      teachers,
-    },
-  };
-}
+export const addTeacher = createAction("ADD_TEACHER", (teacher) => ({
+  payload: {
+    teacher,
+  },
+}));
+export const deleteTeacher = createAction("DELETE_TEACHER", (id) => ({
+  payload: {
+    id,
+  },
+}));
+export const setTeachers = createAction("SET_TEACHERS", (teachers) => ({
+  payload: {
+    teachers,
+  },
+}));
+export const removeTeachers = createAction("REMOVE_TEACHERS");
