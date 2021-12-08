@@ -11,7 +11,7 @@ import { getTeachers, deleteTeacher } from "../api/teachers";
 import {
   setTeachers,
   deleteTeacher as deleteTeacherAction,
-} from "../store/actions/teachers";
+} from "../store/teachers";
 
 /**
  * useMemo
@@ -33,14 +33,17 @@ function Teachers() {
       setLoading(true);
       try {
         const itemsDB = await getTeachers();
-        console.log('itemsDB', itemsDB)
+        console.log("itemsDB", itemsDB);
         dispatch(setTeachers(itemsDB));
       } finally {
         setLoading(false);
       }
     }
-    fetchItems();
-  }, [dispatch]);
+
+    if (!items.length) {
+      fetchItems();
+    }
+  }, [dispatch, items]);
 
   const handleSearch = () => {
     // The serialize function here would be responsible for

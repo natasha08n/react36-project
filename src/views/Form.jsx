@@ -7,11 +7,11 @@ import { Input } from "../components/Input/Input";
 import { Button } from "../components/Button/Button";
 import { addTeacher } from "../api/teachers";
 import { ThemeContext } from "../App";
-import { addTeacher as addTeacherAction } from "../store/actions/teachers";
+import { addTeacher as addTeacherAction } from "../store/teachers";
 import {
   updateDraftTeacher,
   deleteDraftTeacher,
-} from "../store/actions/draftTeacher";
+} from "../store/draftTeacher";
 
 const StyledButton = styled(Button)`
   background-color: ${({ background }) => {
@@ -52,7 +52,7 @@ function Form() {
     e.preventDefault();
 
     onSubmit({ name, surname, description });
-    clearForm();
+    // clearForm();
   };
 
   const clearForm = () => {
