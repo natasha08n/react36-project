@@ -5,9 +5,8 @@ import styled from "styled-components";
 
 import { Input } from "../components/Input/Input";
 import { Button } from "../components/Button/Button";
-import { addTeacher } from "../api/teachers";
 import { ThemeContext } from "../App";
-import { addTeacher as addTeacherAction } from "../store/teachers";
+import { addTeacher } from "../store/operations/teachers";
 import {
   updateDraftTeacher,
   deleteDraftTeacher,
@@ -34,19 +33,7 @@ function Form() {
   );
   const navigate = useNavigate();
   const theme = useContext(ThemeContext);
-  const rendered = useRef(false);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (rendered.current) {
-      // if true
-      console.log("1");
-    } else {
-      // if false
-      console.log("2");
-      rendered.current = true;
-    }
-  }, [name, surname, description]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -61,8 +48,7 @@ function Form() {
 
   const onSubmit = async (item) => {
     try {
-      const teacher = await addTeacher(item);
-      dispatch(addTeacherAction(teacher));
+      dispatch(addTeacher(item));
       navigate("/teachers");
     } catch (error) {
       alert(error.toString());

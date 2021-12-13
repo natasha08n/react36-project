@@ -1,28 +1,43 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = [];
+import {
+  fetchTeachers,
+  addTeacher,
+  deleteTeacher,
+} from "./operations/teachers";
+
+const initialState = { items: [], loading: false };
 
 const { actions, reducer } = createSlice({
   name: "teachers",
   initialState,
   reducers: {
-    addTeacher: {
-      reducer: (state, action) => {
-        console.log("state, payload", state, action.payload.teacher);
-        return [...state, action.payload.teacher];
-      },
-      prepare: (teacher) => ({ payload: { teacher } }),
-    },
-    deleteTeacher: (state, action) =>
-      state.filter((i) => i.id !== action.payload.id),
-    setTeachers: {
-      reducer: (state, action) => [...state, ...action.payload.teachers],
-      prepare: (teachers) => ({ payload: { teachers } }),
-    },
     removeTeachers: () => initialState,
+  },
+  extraReducers: (builder) => {
+    builder.addCase(fetchTeachers.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(addTeacher.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(deleteTeacher.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(fetchTeachers.fulfilled, (state, action) => {
+      state.items = action.payload;
+      state.loading = false;
+    });
+    builder.addCase(addTeacher.fulfilled, (state, action) => {
+      state.items = [...state.items, action.payload];
+      state.loading = false;
+    });
+    builder.addCase(deleteTeacher.fulfilled, (state, action) => {
+      state.items = state.items.filter((i) => i.id !== action.payload);
+      state.loading = false;
+    });
   },
 });
 
-export const { addTeacher, deleteTeacher, setTeachers, removeTeachers } =
-  actions;
+export const { removeTeachers } = actions;
 export default reducer;

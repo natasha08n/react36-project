@@ -1,64 +1,17 @@
 {
   "teachers": [
     {
-      "name": "Саша",
-      "surname": "Репета",
-      "description": "",
-      "id": 16
+      "name": "Наташа",
+      "surname": "Чобот",
+      "description": "242345",
+      "id": 1
     },
     {
       "name": "Джек",
-      "surname": "Воробей",
+      "surname": "Black",
       "description": "",
-      "id": 17
-    },
-    {
-      "name": "dfgdfksff",
-      "surname": "dsfgdfdfsdffd",
-      "description": "dfdfsfs",
-      "id": 18
-    },
-    {
-      "name": "dfvd",
-      "surname": "fsadfarfg",
-      "description": "gersfvrefger",
-      "id": 19
-    },
-    {
-      "name": "fff",
-      "surname": "wafwe",
-      "description": "sdfsafa",
-      "id": 20
-    },
-    {
-      "name": "1234567489",
-      "surname": "234567899-0876543",
-      "description": "7800-89876543",
-      "id": 21
-    },
-    {
-      "name": "121",
-      "surname": "123",
-      "description": "3453",
-      "id": 22
-    },
-    {
-      "name": "Аби",
-      "surname": "Чобот",
-      "description": "",
-      "id": 23
-    },
-    {
-      "name": "231",
-      "surname": "1343214",
-      "description": "235423",
-      "id": 24
-    },
-    {
-      "name": "12",
-      "surname": "34",
-      "description": "564",
-      "id": 25
+      "id": 2
     }
-  ]
+  ],
+  "contacts": []
 }
