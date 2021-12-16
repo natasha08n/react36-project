@@ -2,8 +2,8 @@ import axios from "axios";
 
 import { BASE_URL } from "./constants";
 
-export const getTeachers = async () => {
-  const { data } = await axios.get(`${BASE_URL}/teachers`);
+export const getTeachers = async (query) => {
+  const { data } = await axios.get(`${BASE_URL}/teachers${query ? `?q=${query}` : ''}`);
 
   return data;
 };

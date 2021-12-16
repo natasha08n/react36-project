@@ -1,5 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+import { addTeacher } from "./operations/teachers";
+
 const initialState = {
   name: "",
   surname: "",
@@ -14,7 +16,9 @@ const { actions, reducer } = createSlice({
       ...state,
       ...action.payload,
     }),
-    deleteDraftTeacher: initialState,
+  },
+  extraReducers: (builder) => {
+    builder.addCase(addTeacher.fulfilled, () => initialState);
   },
 });
 

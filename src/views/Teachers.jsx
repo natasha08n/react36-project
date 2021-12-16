@@ -5,9 +5,14 @@ import { useSelector, useDispatch } from "react-redux";
 import { Header } from "../components/Header";
 import { List } from "../components/List";
 import { Input } from "../components/Input/Input";
-import { Button } from "../components/Button/Button";
 import { Loading } from "../components/Loading";
 import { fetchTeachers, deleteTeacher } from "../store/operations/teachers";
+import {
+  getTeachers,
+  getTeachersLoadingStatus,
+} from "../store/selectors/teachers";
+import { useDebouncedSearch } from "../hooks/useDebouncedSearch";
+import { getTeachers as getTeachersAPI } from '../api/teachers'
 
 /**
  * useMemo
@@ -16,31 +21,37 @@ import { fetchTeachers, deleteTeacher } from "../store/operations/teachers";
  * useLocalStorage
  */
 
+const useSearchTeachers = (initialQuery) =>
+  useDebouncedSearch(initialQuery, async (query) => getTeachersAPI(query));
+
 function Teachers() {
-  const { items, loading } = useSelector((state) => state.teachers);
-  const dispatch = useDispatch();
-  // const [filteredItems, setFilteredItems] = useState(items);
-  const [searchQuery, setSearchQuery] = useState("");
   let [searchParams, setSearchParams] = useSearchParams();
+  const items = useSelector(getTeachers);
+  const loading = useSelector(getTeachersLoadingStatus);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchTeachers());
+    dispatch(fetchTeachers(query));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
 
-  const handleSearch = () => {
-    // The serialize function here would be responsible for
-    // creating an object of { key: value } pairs from the
-    // fields in the form that make up the query.
-    setSearchParams({ search: searchQuery, name: "name" });
+  const handleSearch = (query) => {
+    setSearchParams({ query });
+    setQuery(query);
   };
 
   const handleDeleteItem = (id) => {
     dispatch(deleteTeacher(id));
   };
 
-  // const filterItems = () => {
-  //   setFilteredItems(items.filter((item) => item.description));
-  // };
+  if (!items.length) {
+    return (
+      <>
+        <Header size="h3" title="Преподавателей нет" />
+        <Link to="/form">Добавить нового преподавателя</Link>
+      </>
+    );
+  }
 
   return (
     <>
@@ -49,13 +60,10 @@ function Teachers() {
       <Input
         name="search"
         labelName="Search"
-        value={searchQuery}
-        onChange={setSearchQuery}
+        value={query}
+        onChange={handleSearch}
       />
-      <Button onClick={handleSearch} name="Run Search" />
-      {items.length > 0 && <List items={items} deleteItem={handleDeleteItem} />}
-      {/* <button onClick={filterItems}>Показать тех, у кого есть описание</button>
-      {filteredItems.length > 0 && <List items={filteredItems} />} */}
+      <List items={query ? searchResults : items} deleteItem={handleDeleteItem} />
       <hr />
 
       <br />

@@ -1,16 +1,40 @@
 {
   "teachers": [
     {
-      "name": "Наташа",
-      "surname": "Чобот",
-      "description": "242345",
-      "id": 1
-    },
-    {
       "name": "Джек",
       "surname": "Black",
       "description": "",
       "id": 2
+    },
+    {
+      "name": "Наташа",
+      "surname": "Чобот",
+      "description": "",
+      "id": 3
+    },
+    {
+      "name": "Валерий",
+      "surname": "Репета",
+      "description": "",
+      "id": 4
+    },
+    {
+      "name": "Джек",
+      "surname": "Веселый",
+      "description": "",
+      "id": 5
+    },
+    {
+      "name": "Аби",
+      "surname": "Black",
+      "description": "",
+      "id": 6
+    },
+    {
+      "name": "Наташа",
+      "surname": "Воробей",
+      "description": "",
+      "id": 7
     }
   ],
   "contacts": []

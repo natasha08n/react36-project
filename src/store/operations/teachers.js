@@ -8,8 +8,8 @@ import {
 
 export const fetchTeachers = createAsyncThunk(
   "teachers/fetchTeachers",
-  async () => {
-    const data = await getTeachers();
+  async (query) => {
+    const data = await getTeachers(query);
     return data;
   }
 );
