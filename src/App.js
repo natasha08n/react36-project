@@ -2,12 +2,15 @@ import React, { lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 import { createContext } from "react";
 import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
 
 import { store } from "./store/index";
 import { Home } from "./views/Home";
 import { Loading } from "./components/Loading";
 import { Menu } from "./components/Menu";
 import { theme } from "./theme/colors";
+import { Login } from "./views/Login";
+import { persistor } from "./store/index";
 
 const AsyncTeacher = lazy(() => import("./views/Teacher"));
 const AsyncTeachers = lazy(() => import("./views/Teachers"));
@@ -19,17 +22,20 @@ class App extends React.Component {
   render() {
     return (
       <Provider store={store}>
-        <ThemeContext.Provider value={theme.light}>
-          <Suspense fallback={<Loading />}>
-            <Routes>
-              <Route path="/" element={<Menu />} />
-              <Route index element={<Home />} />
-              <Route path="/form" element={<AsyncForm />} />
-              <Route path="/teachers" element={<AsyncTeachers />} />
-              <Route path="/teachers/:id" element={<AsyncTeacher />} />
-            </Routes>
-          </Suspense>
-        </ThemeContext.Provider>
+        <PersistGate loading={null} persistor={persistor}>
+          <ThemeContext.Provider value={theme.light}>
+            <Suspense fallback={<Loading />}>
+              <Routes>
+                <Route path="/" element={<Menu />} />
+                <Route index element={<Home />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/form" element={<AsyncForm />} />
+                <Route path="/teachers" element={<AsyncTeachers />} />
+                <Route path="/teachers/:id" element={<AsyncTeacher />} />
+              </Routes>
+            </Suspense>
+          </ThemeContext.Provider>
+        </PersistGate>
       </Provider>
     );
   }

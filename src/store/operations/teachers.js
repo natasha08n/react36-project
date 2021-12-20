@@ -9,7 +9,8 @@ import {
 export const fetchTeachers = createAsyncThunk(
   "teachers/fetchTeachers",
   async (query) => {
-    const data = await getTeachers(query);
+    console.log('dfgfd', query)
+    const data = await getTeachers();
     return data;
   }
 );

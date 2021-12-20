@@ -11,8 +11,6 @@ import {
   getTeachers,
   getTeachersLoadingStatus,
 } from "../store/selectors/teachers";
-import { useDebouncedSearch } from "../hooks/useDebouncedSearch";
-import { getTeachers as getTeachersAPI } from '../api/teachers'
 
 /**
  * useMemo
@@ -21,11 +19,9 @@ import { getTeachers as getTeachersAPI } from '../api/teachers'
  * useLocalStorage
  */
 
-const useSearchTeachers = (initialQuery) =>
-  useDebouncedSearch(initialQuery, async (query) => getTeachersAPI(query));
-
 function Teachers() {
   let [searchParams, setSearchParams] = useSearchParams();
+  const [query, setQuery] = useState("");
   const items = useSelector(getTeachers);
   const loading = useSelector(getTeachersLoadingStatus);
   const dispatch = useDispatch();
@@ -63,7 +59,10 @@ function Teachers() {
         value={query}
         onChange={handleSearch}
       />
-      <List items={query ? searchResults : items} deleteItem={handleDeleteItem} />
+      <List
+        items={items}
+        deleteItem={handleDeleteItem}
+      />
       <hr />
 
       <br />

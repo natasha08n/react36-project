@@ -35,7 +35,33 @@
       "surname": "Воробей",
       "description": "",
       "id": 7
+    },
+    {
+      "name": "Саша",
+      "surname": "Black",
+      "description": "",
+      "id": 8
     }
   ],
-  "contacts": []
+  "contacts": [],
+  "user": [
+    {
+      "name": "Natallia Chobat",
+      "email": "ponchikchikobon@gmail.com",
+      "isGoogleSigned": true,
+      "id": 1
+    },
+    {
+      "name": "Natallia Chobat",
+      "email": "ponchikchikobon@gmail.com",
+      "isGoogleSigned": true,
+      "id": 2
+    },
+    {
+      "name": "Natallia Chobat",
+      "email": "ponchikchikobon@gmail.com",
+      "isGoogleSigned": true,
+      "id": 3
+    }
+  ]
 }
