@@ -31,4 +31,4 @@ function Teacher() {
   );
 }
 
-export default Teacher;
+export { Teacher };

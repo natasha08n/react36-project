@@ -10,9 +10,14 @@ import { Loading } from "./components/Loading";
 import { Menu } from "./components/Menu";
 import { theme } from "./theme/colors";
 import { Login } from "./views/Login";
+import Register from "./views/Register";
 import { persistor } from "./store/index";
+import { PrivateRoute } from "./components/PrivateRoute";
+import { PublicRoute } from "./components/PublicRoute";
 
-const AsyncTeacher = lazy(() => import("./views/Teacher"));
+const AsyncTeacher = lazy(() =>
+  import("./views/Teacher").then((m) => ({ default: m.Teacher }))
+);
 const AsyncTeachers = lazy(() => import("./views/Teachers"));
 const AsyncForm = lazy(() => import("./views/Form"));
 
@@ -26,12 +31,48 @@ class App extends React.Component {
           <ThemeContext.Provider value={theme.light}>
             <Suspense fallback={<Loading />}>
               <Routes>
-                <Route path="/" element={<Menu />} />
-                <Route index element={<Home />} />
+                <Route
+                  index
+                  element={
+                    <PrivateRoute>
+                      <Home />
+                    </PrivateRoute>
+                  }
+                />
                 <Route path="/login" element={<Login />} />
-                <Route path="/form" element={<AsyncForm />} />
-                <Route path="/teachers" element={<AsyncTeachers />} />
-                <Route path="/teachers/:id" element={<AsyncTeacher />} />
+                <Route
+                  path="/register"
+                  element={
+                    <PublicRoute>
+                      <Register />
+                    </PublicRoute>
+                  }
+                />
+                <Route
+                  path="/form"
+                  element={
+                    <PrivateRoute>
+                      <AsyncForm />
+                    </PrivateRoute>
+                  }
+                />
+                <Route
+                  path="/teachers"
+                  element={
+                    <PrivateRoute>
+                      <AsyncTeachers />
+                    </PrivateRoute>
+                  }
+                >
+                  <Route
+                    path=":id"
+                    element={
+                      <PrivateRoute>
+                        <AsyncTeacher />
+                      </PrivateRoute>
+                    }
+                  />
+                </Route>
               </Routes>
             </Suspense>
           </ThemeContext.Provider>

@@ -71,7 +71,7 @@ function Form() {
         onChange={handleSurnameUpdate}
       />
       <Input
-        type="textarea"
+        isTextArea
         name="description"
         labelName="Description"
         value={description}

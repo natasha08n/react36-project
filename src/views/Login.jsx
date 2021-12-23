@@ -1,5 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { GoogleLogin, GoogleLogout } from "react-google-login";
 import { CLIENT_ID } from "../api/constants";
 import { addUser, clearUser } from "../store/operations/user";
@@ -54,6 +55,7 @@ const Login = () => {
           onLogoutSuccess={onSuccessLogout}
         />
       )}
+      <Link to="/register">Зарегистрироваться</Link>
     </div>
   );
 };

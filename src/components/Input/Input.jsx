@@ -2,7 +2,14 @@ import { useCallback, memo } from "react";
 
 import "./styles.css";
 
-function Input({ type = "input", labelName, name, value, onChange }) {
+function Input({
+  type = "input",
+  labelName,
+  name,
+  value,
+  onChange,
+  isTextArea,
+}) {
   const handleChange = useCallback(
     (e) => {
       const { value } = e.target;
@@ -16,10 +23,10 @@ function Input({ type = "input", labelName, name, value, onChange }) {
     <div>
       <label>
         {labelName}
-        {type === "input" ? (
+        {!isTextArea ? (
           <input
+            type={type}
             name={name}
-            type="text"
             value={value}
             onChange={handleChange}
             className="input"

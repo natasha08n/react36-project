@@ -58,7 +58,7 @@ class Form extends Component {
           onChange={this.handleChange}
         />
         <Input
-          type="textarea"
+          isTextArea
           name="description"
           labelName="Description"
           value={description}
